@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for post in posts %}
+      <h2><a href="{{ url_for('posts.detail', slug=post.slug) }}">{{ post.title }}</a></h2>
+      <p>{{ post.body|truncate(100) }}</p>
+      <p>
+      <ul class="dropdown-menu pull-right">
+        <li><a tabindex="-1" id="but_price">{{ post.created_at.strftime('%H:%M %Y-%m-%d') }}</a></li>
+        </ul>
+        <li><a tabindex="-1" id="but_price">
+        {% with total=post.comments|length %}
+            {{ total }} comment {%- if total > 1 %}s{%- endif -%}
+        {% endwith %}
+        </a></li>
+      </p>
+    {% endfor %}
+{% endblock %}
